@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import fr.diginamic.recensement.entites.Recensement;
 import fr.diginamic.recensement.entites.Ville;
+import fr.diginamic.recensement.exceptions.ReflectionException;
 import fr.diginamic.recensement.services.comparators.EnsemblePopComparateur;
 
 /**
@@ -19,7 +20,7 @@ import fr.diginamic.recensement.services.comparators.EnsemblePopComparateur;
 public class RechercheVillesPlusPeupleesRegion extends MenuService {
 
 	@Override
-	public void traiter(Recensement recensement, Scanner scanner) {
+	public void traiter(Recensement recensement, Scanner scanner) throws ReflectionException {
 
 		System.out.println("Veuillez saisir un nom de région:");
 		String nomRegion = scanner.nextLine();
@@ -34,6 +35,8 @@ public class RechercheVillesPlusPeupleesRegion extends MenuService {
 		for (Ville ville : villes) {
 			if (ville.getNomRegion().toLowerCase().startsWith(nomRegion.toLowerCase())) {
 				villesRegions.add(ville);
+			}else {
+				throw new ReflectionException("région n'existe pas");
 			}
 		}
 
